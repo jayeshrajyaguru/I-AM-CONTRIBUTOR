@@ -29,7 +29,7 @@ git checkout -b feat/add-contributor-[your-name]
 ```
 
 ### 4. Add your Information
-Open `CONTRIBUTORS.md` and add a new row to the bottom of the table using this template:
+Open [`CONTRIBUTORS.md`](/CONTRIBUTORS.md) and add a new row to the bottom of the table using this template:
 
 **Copy this template:**
 `| Your Name | Beginner | I'm a passionate dev! | PHP, Laravel | [@YourUser](https://github.com/YourUser) |`
