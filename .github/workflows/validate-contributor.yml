@@ -1,0 +1,21 @@
+name: Validate Contributor
+
+on:
+  pull_request:
+    paths:
+      - contributors.json
+
+jobs:
+  validate:
+    name: Validate contributors.json
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run schema validator
+        run: node .github/scripts/validate.mjs
