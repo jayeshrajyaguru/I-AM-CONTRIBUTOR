@@ -15,17 +15,17 @@
         extend: {
           keyframes: {
             slideUp: {
-              '0%': { opacity: '0', transform: 'translateY(16px)' },
+              '0%':   { opacity: '0', transform: 'translateY(16px)' },
               '100%': { opacity: '1', transform: 'translateY(0)' }
             },
             fadeIn: {
-              '0%': { opacity: '0' },
+              '0%':   { opacity: '0' },
               '100%': { opacity: '1' }
             }
           },
           animation: {
             'slide-up': 'slideUp 0.35s ease-out both',
-            'fade-in': 'fadeIn 0.4s ease-out both'
+            'fade-in':  'fadeIn 0.4s ease-out both'
           }
         }
       }
@@ -36,13 +36,13 @@
     ::-webkit-scrollbar-track { background: #0f172a; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+    .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   </style>
 </head>
 <body class="bg-slate-950 text-white min-h-screen antialiased">
 
-  <!-- ── Hero Header ─────────────────────────────────────── -->
+  <!-- Hero -->
   <header class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 pt-14 pb-20">
-    <!-- decorative blobs -->
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
       <div class="absolute -top-10 left-1/4 w-72 h-72 bg-purple-600 rounded-full opacity-20 blur-3xl"></div>
       <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-600 rounded-full opacity-15 blur-3xl"></div>
@@ -59,7 +59,6 @@
         A living directory of developers who took their first step into the world of Open Source.
       </p>
 
-      <!-- Stats bar -->
       <div class="flex flex-wrap justify-center gap-4 animate-fade-in">
         <div class="bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/15">
           <p class="text-2xl font-black text-white" id="stat-contributors">—</p>
@@ -77,73 +76,55 @@
     </div>
   </header>
 
-  <!-- ── Main ──────────────────────────────────────────────── -->
+  <!-- Main -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
     <!-- Filter panel -->
     <div class="bg-slate-900/70 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 mb-8 animate-fade-in">
-
-      <!-- Search -->
       <div class="relative mb-6">
-        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
         </svg>
-        <input
-          type="text"
-          id="search"
-          placeholder="Search by name, intro, or tech stack…"
-          class="w-full bg-slate-800 border border-slate-700 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
-          autocomplete="off"
-        />
+        <input type="text" id="search" placeholder="Search by name, intro, tech stack, or packages…"
+          class="w-full bg-slate-800 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+          autocomplete="off" />
       </div>
-
-      <!-- Category filter -->
       <div class="mb-5">
         <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Category</p>
         <div id="category-filters" class="flex flex-wrap gap-2"></div>
       </div>
-
-      <!-- Tech stack filter -->
       <div>
         <p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Tech Stack</p>
         <div id="tech-filters" class="flex flex-wrap gap-2"></div>
       </div>
     </div>
 
-    <!-- Result count + clear -->
     <div class="flex items-center justify-between mb-6">
       <p class="text-slate-400 text-sm">
         <span id="result-count" class="text-white font-semibold">0</span> contributor<span id="result-plural">s</span> found
       </p>
-      <button
-        id="clear-btn"
-        class="hidden text-sm text-purple-400 hover:text-purple-300 transition-colors focus:outline-none"
-      >
+      <button id="clear-btn" class="hidden text-sm text-purple-400 hover:text-purple-300 transition-colors focus:outline-none cursor-pointer">
         ✕ Clear filters
       </button>
     </div>
 
-    <!-- Grid -->
     <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
 
-    <!-- Empty state -->
     <div id="empty" class="hidden text-center py-24">
       <div class="text-5xl mb-4">🔍</div>
       <h3 class="text-lg font-semibold text-white mb-2">No contributors found</h3>
       <p class="text-slate-500 text-sm">Try a different search or filter combination.</p>
     </div>
 
-    <!-- Loading skeleton (shown until data loads) -->
     <div id="loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 animate-pulse h-56"></div>
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 animate-pulse h-56"></div>
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 animate-pulse h-56"></div>
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 animate-pulse h-56"></div>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 animate-pulse h-64"></div>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 animate-pulse h-64"></div>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 animate-pulse h-64"></div>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 animate-pulse h-64"></div>
     </div>
-
   </main>
 
-  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <!-- Footer -->
   <footer class="border-t border-slate-800/60 mt-16 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
       <p>
@@ -155,19 +136,31 @@
     </div>
   </footer>
 
-  <!-- ── Script ─────────────────────────────────────────────── -->
   <script>
     /**
-     * App state
-     * @type {Array<{name: string, category: string, intro: string, techStack: Array<string>, github: string, githubUrl: string}>}
+     * Full contributor record — only `github` is required.
+     * @typedef {{
+     *   github:      string,
+     *   name?:       string,
+     *   category?:   string,
+     *   intro?:      string,
+     *   techStack?:  Array<string>,
+     *   packages?:   Array<{name: string, url: string, registry?: string}>,
+     *   website?:    string,
+     *   twitter?:    string,
+     *   blog?:       string,
+     *   youtube?:    string,
+     *   linkedin?:   string,
+     *   openSource?: Array<{name: string, url: string}>
+     * }} Contributor
      */
+
+    /** @type {Array<Contributor>} */
     let contributors = [];
     let activeCategory = 'All';
     /** @type {Set<string>} */
-    let activeTechs = new Set();
-    let searchQuery = '';
-
-    // ── Colour palettes ──────────────────────────────────────
+    let activeTechs  = new Set();
+    let searchQuery  = '';
 
     /** @type {Object<string, string>} */
     const CATEGORY_COLORS = {
@@ -208,7 +201,7 @@
     }
 
     /**
-     * Returns category colour class or the default.
+     * Returns category colour class or the default fallback.
      * @param {string} cat
      * @returns {string}
      */
@@ -216,136 +209,196 @@
       return CATEGORY_COLORS[cat] ?? DEFAULT_CATEGORY_COLOR;
     }
 
-    // ── Render helpers ───────────────────────────────────────
+    /** @type {Object<string, {icon: string, label: string, color: string}>} */
+    const REGISTRY_META = {
+      npm:       { icon: '📦', label: 'npm',        color: 'bg-red-500/15    text-red-300    border-red-500/30' },
+      packagist: { icon: '📦', label: 'Packagist',  color: 'bg-orange-500/15 text-orange-300 border-orange-500/30' },
+      pypi:      { icon: '📦', label: 'PyPI',       color: 'bg-blue-500/15   text-blue-300   border-blue-500/30' },
+      rubygems:  { icon: '📦', label: 'RubyGems',   color: 'bg-red-500/15    text-red-300    border-red-500/30' },
+      crates:    { icon: '📦', label: 'crates.io',  color: 'bg-amber-500/15  text-amber-300  border-amber-500/30' },
+    };
+    const DEFAULT_REGISTRY = { icon: '📦', label: 'Package', color: 'bg-slate-500/15 text-slate-300 border-slate-500/30' };
+
+    const ICONS = {
+      github:   `<svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.38 7.86 10.9.57.1.78-.25.78-.55v-1.93c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18A10.95 10.95 0 0112 6.84c.97.004 1.95.13 2.86.38 2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.42.36.79 1.07.79 2.15v3.19c0 .31.21.66.79.55C20.22 21.38 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg>`,
+      website:  `<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>`,
+      twitter:  `<svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
+      blog:     `<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>`,
+      youtube:  `<svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>`,
+      linkedin: `<svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+      oss:      `<svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>`,
+    };
+
+    /**
+     * Builds social icon links for a contributor.
+     * @param {Contributor} c
+     * @returns {string}
+     */
+    function buildSocialLinks(c) {
+      const links = [];
+      if (c.website)  links.push({ href: c.website,                             icon: ICONS.website,  label: 'Website' });
+      if (c.twitter)  links.push({ href: `https://twitter.com/${c.twitter}`,    icon: ICONS.twitter,  label: 'Twitter/X' });
+      if (c.blog)     links.push({ href: c.blog,                                icon: ICONS.blog,     label: 'Blog' });
+      if (c.youtube)  links.push({ href: c.youtube,                             icon: ICONS.youtube,  label: 'YouTube' });
+      if (c.linkedin) links.push({ href: `https://linkedin.com/in/${c.linkedin}`, icon: ICONS.linkedin, label: 'LinkedIn' });
+      if (!links.length) return '';
+      return `<div class="flex items-center gap-1.5 flex-wrap">${
+        links.map(l => `<a href="${l.href}" target="_blank" rel="noopener noreferrer" title="${l.label}"
+          class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white transition-colors">${l.icon}</a>`).join('')
+      }</div>`;
+    }
+
+    /**
+     * Builds the published packages section HTML.
+     * @param {Array<{name: string, url: string, registry?: string}>|undefined} packages
+     * @returns {string}
+     */
+    function buildPackages(packages) {
+      if (!packages || !packages.length) return '';
+      const items = packages.map(pkg => {
+        const meta = REGISTRY_META[(pkg.registry || '').toLowerCase()] ?? DEFAULT_REGISTRY;
+        return `<a href="${pkg.url}" target="_blank" rel="noopener noreferrer" title="${pkg.name}"
+          class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border ${meta.color} text-xs font-medium hover:brightness-125 transition-all truncate"
+          >${meta.icon} <span class="truncate">${pkg.name}</span></a>`;
+      }).join('');
+      return `<div>
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1.5">📦 Packages</p>
+        <div class="flex flex-col gap-1">${items}</div>
+      </div>`;
+    }
+
+    /**
+     * Builds the OSS contributions section HTML.
+     * @param {Array<{name: string, url: string}>|undefined} projects
+     * @returns {string}
+     */
+    function buildOpenSource(projects) {
+      if (!projects || !projects.length) return '';
+      const items = projects.map(p =>
+        `<a href="${p.url}" target="_blank" rel="noopener noreferrer" title="${p.name}"
+          class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-purple-300 transition-colors truncate"
+          >${ICONS.oss}<span class="truncate">${p.name}</span></a>`
+      ).join('');
+      return `<div>
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1.5">🔧 OSS Projects</p>
+        <div class="flex flex-col gap-1">${items}</div>
+      </div>`;
+    }
+
+    /**
+     * Returns the full card HTML for one contributor.
+     * @param {Contributor} c
+     * @param {number} index
+     * @returns {string}
+     */
+    function buildCard(c, index) {
+      const displayName = c.name || c.github;
+      const githubUrl   = `https://github.com/${c.github}`;
+      const avatarUrl   = `https://github.com/${c.github}.png?size=96`;
+      const fallback    = `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=6d28d9&color=fff&size=96`;
+
+      const categoryBadge = c.category
+        ? `<span class="inline-block mt-1 px-2 py-0.5 rounded-md text-xs font-medium border ${categoryColor(c.category)}">${c.category}</span>`
+        : '';
+      const introBlock = c.intro
+        ? `<p class="text-slate-400 text-sm leading-relaxed line-clamp-3">${c.intro}</p>`
+        : '';
+      const techBlock = c.techStack && c.techStack.length
+        ? `<div class="flex flex-wrap gap-1.5">${c.techStack.map(t => `<span class="px-2 py-0.5 rounded-md text-xs font-medium border ${techColor(t)}">${t}</span>`).join('')}</div>`
+        : '';
+
+      return `
+        <article class="group flex flex-col gap-3 bg-slate-900 border border-slate-800 rounded-2xl p-5
+                        hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/10
+                        transition-all duration-300 animate-slide-up"
+                 style="animation-delay:${index * 40}ms">
+          <div class="flex items-center gap-3">
+            <img src="${avatarUrl}" alt="${displayName}" loading="lazy"
+              class="w-12 h-12 rounded-full ring-2 ring-slate-700 group-hover:ring-purple-500/60 transition-all shrink-0"
+              onerror="this.src='${fallback}'" />
+            <div class="min-w-0">
+              <h3 class="font-semibold text-white text-sm truncate">${displayName}</h3>
+              <p class="text-xs text-slate-500 truncate">@${c.github}</p>
+              ${categoryBadge}
+            </div>
+          </div>
+          ${introBlock}
+          ${techBlock}
+          ${buildPackages(c.packages)}
+          ${buildOpenSource(c.openSource)}
+          <div class="mt-auto flex items-center gap-2 pt-1">
+            ${buildSocialLinks(c)}
+            <a href="${githubUrl}" target="_blank" rel="noopener noreferrer"
+              class="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium
+                     bg-slate-800 border border-slate-700 text-slate-300
+                     hover:bg-purple-600 hover:border-purple-500 hover:text-white
+                     transition-all duration-200 shrink-0">
+              ${ICONS.github} GitHub
+            </a>
+          </div>
+        </article>`;
+    }
 
     function updateStats() {
-      const cats  = new Set(contributors.map(c => c.category));
-      const techs = new Set(contributors.flatMap(c => c.techStack));
+      const cats  = new Set(contributors.map(c => c.category).filter(Boolean));
+      const techs = new Set(contributors.flatMap(c => c.techStack ?? []));
       document.getElementById('stat-contributors').textContent = contributors.length;
       document.getElementById('stat-categories').textContent   = cats.size;
       document.getElementById('stat-techs').textContent        = techs.size;
     }
 
     function renderCategoryFilters() {
-      const categories = ['All', ...new Set(contributors.map(c => c.category))];
-      document.getElementById('category-filters').innerHTML = categories.map(cat => {
+      const cats = ['All', ...new Set(contributors.map(c => c.category).filter(Boolean))];
+      document.getElementById('category-filters').innerHTML = cats.map(cat => {
         const active = cat === activeCategory;
-        return `<button
-          onclick="setCategory('${cat}')"
+        return `<button onclick="setCategory('${cat}')"
           class="px-4 py-1.5 rounded-xl text-sm font-medium border transition-all cursor-pointer
             ${active
               ? 'bg-purple-600 text-white border-purple-500 shadow-lg shadow-purple-500/25'
-              : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-purple-500/70 hover:text-white'
-            }"
-          data-category="${cat}">${cat}</button>`;
+              : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-purple-500/70 hover:text-white'}">${cat}</button>`;
       }).join('');
     }
 
     function renderTechFilters() {
-      const techs = [...new Set(contributors.flatMap(c => c.techStack))].sort();
+      const techs = [...new Set(contributors.flatMap(c => c.techStack ?? []))].sort();
       document.getElementById('tech-filters').innerHTML = techs.map(tech => {
         const active = activeTechs.has(tech);
-        return `<button
-          onclick="toggleTech('${tech}')"
+        return `<button onclick="toggleTech('${tech}')"
           class="px-3 py-1 rounded-lg text-xs font-medium border transition-all cursor-pointer
             ${active
               ? techColor(tech) + ' ring-1 ring-current'
-              : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white hover:border-slate-500'
-            }"
-          data-tech="${tech}">${tech}</button>`;
+              : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white hover:border-slate-500'}">${tech}</button>`;
       }).join('');
     }
 
     /**
-     * Returns contributors that match current search + filters.
-     * @returns {Array<{name: string, category: string, intro: string, techStack: Array<string>, github: string, githubUrl: string}>}
+     * Returns contributors matching current search + filters.
+     * @returns {Array<Contributor>}
      */
     function filtered() {
       return contributors.filter(c => {
         const q = searchQuery;
         const matchSearch = !q
-          || c.name.toLowerCase().includes(q)
-          || c.intro.toLowerCase().includes(q)
-          || c.techStack.some(t => t.toLowerCase().includes(q));
+          || (c.name || c.github).toLowerCase().includes(q)
+          || (c.intro ?? '').toLowerCase().includes(q)
+          || (c.techStack ?? []).some(t => t.toLowerCase().includes(q))
+          || (c.packages  ?? []).some(p => p.name.toLowerCase().includes(q));
         const matchCat  = activeCategory === 'All' || c.category === activeCategory;
         const matchTech = activeTechs.size === 0
-          || [...activeTechs].every(t => c.techStack.includes(t));
+          || [...activeTechs].every(t => (c.techStack ?? []).includes(t));
         return matchSearch && matchCat && matchTech;
       });
     }
 
-    /**
-     * Renders contributor cards from a filtered list.
-     * @param {Array<{name: string, category: string, intro: string, techStack: Array<string>, github: string, githubUrl: string}>} list
-     */
     function renderCards(list) {
-      const grid  = document.getElementById('grid');
-      const empty = document.getElementById('empty');
-      const count = document.getElementById('result-count');
-      const plural = document.getElementById('result-plural');
-
-      count.textContent  = list.length;
-      plural.textContent = list.length === 1 ? '' : 's';
-
-      if (list.length === 0) {
-        grid.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
-      }
+      const grid   = document.getElementById('grid');
+      const empty  = document.getElementById('empty');
+      document.getElementById('result-count').textContent  = list.length;
+      document.getElementById('result-plural').textContent = list.length === 1 ? '' : 's';
+      if (!list.length) { grid.innerHTML = ''; empty.classList.remove('hidden'); return; }
       empty.classList.add('hidden');
-
-      grid.innerHTML = list.map((c, i) => `
-        <article
-          class="group flex flex-col gap-4 bg-slate-900 border border-slate-800 rounded-2xl p-5
-                 hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/10
-                 transition-all duration-300 animate-slide-up"
-          style="animation-delay:${i * 40}ms"
-        >
-          <!-- Avatar + name + category -->
-          <div class="flex items-center gap-3">
-            <img
-              src="https://github.com/${c.github}.png?size=80"
-              alt="${c.name}"
-              loading="lazy"
-              class="w-12 h-12 rounded-full ring-2 ring-slate-700 group-hover:ring-purple-500/60 transition-all shrink-0"
-              onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(c.name)}&background=6d28d9&color=fff&size=80'"
-            />
-            <div class="min-w-0">
-              <h3 class="font-semibold text-white text-sm truncate">${c.name}</h3>
-              <span class="inline-block mt-1 px-2 py-0.5 rounded-md text-xs font-medium border ${categoryColor(c.category)}">${c.category}</span>
-            </div>
-          </div>
-
-          <!-- Intro -->
-          <p class="text-slate-400 text-sm leading-relaxed flex-1 line-clamp-3">${c.intro}</p>
-
-          <!-- Tech stack -->
-          <div class="flex flex-wrap gap-1.5">
-            ${c.techStack.map(t => `
-              <span class="px-2 py-0.5 rounded-md text-xs font-medium border ${techColor(t)}">${t}</span>
-            `).join('')}
-          </div>
-
-          <!-- GitHub link -->
-          <a
-            href="${c.githubUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex items-center justify-center gap-2 w-full rounded-xl py-2 text-sm font-medium
-                   bg-slate-800 border border-slate-700 text-slate-300
-                   hover:bg-purple-600 hover:border-purple-500 hover:text-white
-                   transition-all duration-200"
-          >
-            <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.38 7.86 10.9.57.1.78-.25.78-.55v-1.93c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18A10.95 10.95 0 0112 6.84c.97.004 1.95.13 2.86.38 2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.42.36.79 1.07.79 2.15v3.19c0 .31.21.66.79.55C20.22 21.38 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/>
-            </svg>
-            View Profile
-          </a>
-        </article>
-      `).join('');
+      grid.innerHTML = list.map((c, i) => buildCard(c, i)).join('');
     }
-
-    // ── Filter actions ───────────────────────────────────────
 
     function applyFilters() {
       renderCategoryFilters();
@@ -356,10 +409,7 @@
     }
 
     /** @param {string} cat */
-    function setCategory(cat) {
-      activeCategory = cat;
-      applyFilters();
-    }
+    function setCategory(cat) { activeCategory = cat; applyFilters(); }
 
     /** @param {string} tech */
     function toggleTech(tech) {
@@ -367,28 +417,19 @@
       applyFilters();
     }
 
-    // ── Event listeners ──────────────────────────────────────
-
     document.getElementById('search').addEventListener('input', e => {
       searchQuery = e.target.value.toLowerCase().trim();
       applyFilters();
     });
 
     document.getElementById('clear-btn').addEventListener('click', () => {
-      activeCategory = 'All';
-      activeTechs.clear();
-      searchQuery = '';
+      activeCategory = 'All'; activeTechs.clear(); searchQuery = '';
       document.getElementById('search').value = '';
       applyFilters();
     });
 
-    // ── Bootstrap ────────────────────────────────────────────
-
     fetch('contributors.json')
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then(data => {
         document.getElementById('loading').remove();
         contributors = data;
