@@ -60,5 +60,33 @@
   {
     "github": "sonalidudhia",
     "name": "sonali dudhia"
+  },
+  {
+    "github": "samakshgrover",
+    "name": "Samaksh Grover",
+    "category": "Beginner",
+    "intro": "A Software engineer",
+    "techStack": [
+      "JavaScript",
+      "Node.js"
+    ],
+    "packages": [
+      {
+        "name": "your-package",
+        "url": "https://packagist.org/packages/you/your-package",
+        "registry": "packagist"
+      }
+    ],
+    "website": "https://github.com/samakshgrove",
+    "twitter": "samaksh_grover",
+    "blog": "https://dev.to/yourhandle",
+    "youtube": "https://youtube.com/@yourchannel",
+    "linkedin": "samakshgrover/",
+    "openSource": [
+      {
+        "name": "org/repo",
+        "url": "https://github.com/org/repo"
+      }
+    ]
   }
 ]
